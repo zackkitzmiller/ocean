@@ -1,3 +1,4 @@
+import os
 import time
 
 from phue import Bridge
@@ -44,14 +45,14 @@ TEMP_MAP = {
 
 }
 
-BRIDGE_IP = "10.0.1.2"
-BRIDGE_UN = "w6jTpTU6f7YaCpmbUImJCFJBy0mDf79clgJF1zCf"
+BRIDGE_IP = os.getenv("BRIDGE_IP")
+BRIDGE_UN = os.getenv("BRIDGE_UN")
 
 LAT = 41.92
 LNG = -87.72
 UNITS = "imperial"
 
-OPENWEATHER_API_KEY = "1c9a8557e88613bbf86625546f0bd37e"
+OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 OPENWEATHER_BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 WEATHER_LIGHT_ID =  2
 
