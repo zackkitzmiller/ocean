@@ -27,6 +27,7 @@ class HueMotion(object):
     def init_queue(self):
         print("[QUEUE SERVICE] Initializing...")
         self.queue = greenstalk.Client(host=BEANSTALK_IP, port=BEANSTALK_PORT)
+        self.queue.use("ocean")
 
     def ensure_active(self):
         sensor = self.bridge.get_sensor(sensor_id=SENSOR_ID)
