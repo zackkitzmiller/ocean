@@ -41,7 +41,11 @@ class HueMotion(object):
 
     def run(self):
         while True:
-            sensor = self.bridge.get_sensor(sensor_id=SENSOR_ID)
+            try:
+                sensor = self.bridge.get_sensor(sensor_id=SENSOR_ID)
+            except Exception as e:
+                print("[SENSOR SERVICE] Error getting Sensor: {0}".format(e))
+                continue
             sensor_state = sensor['state']['presence']
             if sensor_state and not self.previous_sensor_state:
                 print("[SENSOR SERVICE] Motion Detected... ")
