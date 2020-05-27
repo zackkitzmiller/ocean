@@ -5,11 +5,14 @@ import time
 
 import greenstalk
 from phue import Bridge
+import redis
 
 BRIDGE_IP = os.getenv("BRIDGE_IP")
 BRIDGE_UN = os.getenv("BRIDGE_UN")
 BEANSTALK_IP = os.getenv("BEANSTALK_IP")
 BEANSTALK_PORT = os.getenv("BEANSTALK_PORT")
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
 
 SENSOR_ID =  46
 WEATHER_LIGHT_ID = 2
@@ -23,6 +26,12 @@ class HueMotion(object):
         self.previous_sensor_state = False
         self.queue = None
         self.init_queue()
+        self.redis = None
+        self.init_redis()
+
+    def init_redis(self):
+        print("[REDIS SERVICE] Initializing...")
+        self.redis = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
     def init_queue(self):
         print("[QUEUE SERVICE] Initializing...")
@@ -41,6 +50,11 @@ class HueMotion(object):
 
     def run(self):
         while True:
+            if self.redis.get('ocean:disabled'):
+                print("[OCEAN SERVICE] Ocean Disabled")
+                time.sleep(30)
+                continue
+
             try:
                 sensor = self.bridge.get_sensor(sensor_id=SENSOR_ID)
             except Exception as e:
@@ -50,6 +64,7 @@ class HueMotion(object):
             if sensor_state and not self.previous_sensor_state:
                 print("[SENSOR SERVICE] Motion Detected... ")
                 params = {
+                    'sat': random.randint(0, 254),
                     'xy': [random.random(), random.random()]
                 }
                 self.queue.put(json.dumps(params))

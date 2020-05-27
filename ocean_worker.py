@@ -68,13 +68,15 @@ class OceanWorker(object):
             self.beanstalk_client.delete(job)
             return
 
+        print("[OCEAN WORKER] Setting light saturation to {0}".format(params['sat']))
+        print("[OCEAN WORKER] Setting light XY to {0}".format(params['xy']))
         status = self.bridge.set_light(WEATHER_LIGHT_ID, params)
         if len(status) and len(status[0]):
             if 'error' in status[0][0]:
                 print("[OCEAN WORKER] {0}".format(
                     status[0][0]['error']['description']))
                 self.bridge.set_light(WEATHER_LIGHT_ID, "on", True)
-                status = self.bridge.set_light(WEATHER_LIGHT_ID, params)
+                self.bridge.set_light(WEATHER_LIGHT_ID, params)
         # send_sms()
         self.beanstalk_client.delete(job)
 

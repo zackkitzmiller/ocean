@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ocean Control Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-cyan" style="margin-bottom:40px; color: hsl(204, 86%, 53%);">
+        🌊 Ocean
+      </h1>
+      <div style="vertical-align: middle; margin: auto 0px; height: 500px; display: grid">
+      <p>
+        <form action="/toggle-ocean" method="POST">
+            <input type="submit" class="is-primary button is-large is-fullwidth" value="{{ next_status }} Ocean" style="vertical-align: middle">
+        </form>
+      </p>
+      </div>
+    </div>
+  </section>
+  </body>
+</html>
