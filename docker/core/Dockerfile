@@ -1,7 +1,6 @@
-FROM ubuntu:18.04
+FROM python:3.7-alpine
 
-RUN apt-get -yqq update
-RUN apt-get -yqq install python3-pip python3-dev curl gnupg
+RUN apk add --no-cache python3-dev curl gnupg build-base
 
 ENV PYTHONUNBUFFERED=1
 

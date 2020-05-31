@@ -1,6 +1,6 @@
-FROM python:3.7-alpine
+FROM arm32v6/python:3.7-alpine
 
-RUN apk add --no-cache python3-dev curl gnupg build-base
+RUN apk python3-dev curl gnupg build-base
 
 ENV PYTHONUNBUFFERED=1
 ENV LC_ALL=C.UTF-8

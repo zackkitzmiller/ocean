@@ -1,13 +1,8 @@
-FROM python:3.7-alpine
+FROM arm32v6/python:3.7-alpine
 
 RUN apk add --no-cache python3-dev curl gnupg build-base
 
 ENV PYTHONUNBUFFERED=1
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-ENV FLASK_APP=ocean_api.py
-
-EXPOSE "5000:5000"
 
 RUN mkdir /code
 WORKDIR /code
@@ -16,4 +11,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . /code/
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["python3", "/code/ocean_worker.py"]
