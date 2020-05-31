@@ -22,7 +22,8 @@ class OceanWorker(object):
 
     def __init__(self):
         self.twilio_client = None
-        self.init_twilio()
+        if TWILIO_SID:
+            self.init_twilio()
         self.beanstalk_client = None
         self.init_beanstalk()
         self.bridge = None
