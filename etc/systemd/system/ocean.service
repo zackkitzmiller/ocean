@@ -8,8 +8,8 @@ After=docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/home/pui/code/service
-ExecStart=/usr/local/bin/docker-compose up -d
+WorkingDirectory=/home/pi/code/service
+ExecStart=/usr/local/bin/docker-compose -f docker-compose-arm32v6.yml up -d
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0
 
