@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  ocean-core:
+    image: zackkitzmiller/ocean-core:arm32v6
+    depends_on:
+      - redis
+      - beanstalk
+    environment:
+      - BRIDGE_IP=10.0.1.2
+      - BRIDGE_UN=w6jTpTU6f7YaCpmbUImJCFJBy0mDf79clgJF1zCf
+      - BEANSTALK_IP=beanstalk
+      - BEANSTALK_PORT=11300
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  ocean-worker:
+    image: zackkitzmiller/ocean-worker:arm32v6
+    environment:
+      - BRIDGE_IP=10.0.1.2
+      - BRIDGE_UN=w6jTpTU6f7YaCpmbUImJCFJBy0mDf79clgJF1zCf
+      - BEANSTALK_IP=beanstalk
+      - BEANSTALK_PORT=11300
+  ocean-web:
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    image: zackkitzmiller/ocean-web:arm32v6
+    ports:
+      - "5000:5000"
+  beanstalk:
+    image: zackkitzmiller/docker-beanstalkd-arm32v6
+  redis:
+    image: arm32v6/redis:alpine
