@@ -8,10 +8,12 @@ After=docker.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-WorkingDirectory=/home/pi/code/service
-ExecStart=/usr/local/bin/docker-compose -f docker-compose-arm32v6.yml up -d
-ExecStop=/usr/local/bin/docker-compose down
+WorkingDirectory=/home/pi/code/ocean
+ExecStart=/usr/bin/docker-compose -f docker-compose-arm32v6.yml up
+ExecStop=/usr//bin/docker-compose down
 TimeoutStartSec=0
+StandardOutput=file:/var/log/ocean.log
+StandardError=file:/var/log/ocean-error.log
 
 [Install]
 WantedBy=multi-user.target
